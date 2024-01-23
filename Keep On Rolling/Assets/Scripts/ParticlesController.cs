@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 
 public class ParticlesController : MonoBehaviour {
+    //This script is used on any object with particles and will disable
+    //the particles if the particle settings is disable
 
     public MainScript mainScriptRef;
 
