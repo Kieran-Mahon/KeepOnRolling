@@ -3617,7 +3617,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: NEW GAME
+  m_Text: RESTART
 --- !u!222 &63668896
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -26902,7 +26902,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 554fc558cc1c8aa4391b6ebde79d509a, type: 3}
-    m_FontSize: 50
+    m_FontSize: 35
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 2
@@ -26913,7 +26913,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Coming Soon
+  m_Text: COMING SOON
 --- !u!222 &451522056
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -34682,7 +34682,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &576872177
 RectTransform:
   m_ObjectHideFlags: 0
@@ -48764,7 +48764,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &816948029
 RectTransform:
   m_ObjectHideFlags: 0
@@ -109945,7 +109945,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mode: newGame
-  version: 0.24
+  version: 0.25
   bestScore: 0
   score: 0
   currency: 0

@@ -625,9 +625,7 @@ public class MainScript : MonoBehaviour {
 
             //Keys
             if (Input.GetKeyDown(nextLevelKey)) { //Go to the next level if allowed
-                if (level < maxLevel) {
-                    NextLevel();
-                }
+                NextLevel();
             }
             if (Input.GetKeyDown(backButtonKey)) { //Go back to the main menu
                 SwitchScreens("mainMenu");
@@ -640,7 +638,7 @@ public class MainScript : MonoBehaviour {
             leveledWinMoneyEarntText.text = "$" + Mathf.RoundToInt(leveledMoneyEarnt).ToString();
 
             //Display the next button if there is a next level
-            leveledWinNextGameButton.gameObject.SetActive(level < maxLevel);
+            leveledWinNextGameButton.gameObject.SetActive(level <= maxLevel);
         }
 
         //Move the audio listener
@@ -893,6 +891,8 @@ public class MainScript : MonoBehaviour {
             instantiatedPlatform = Instantiate(platforms[Mathf.RoundToInt(Random.Range(0, platforms.Length))], new Vector3(0, -4.5f * i, 25 * i), Quaternion.Euler(10.204f, 0, 0));
             instantiatedPlatform.tag = platformTag;
 
+            //Spawn background objects on platform
+            SpawnBackgroundObjects(i, instantiatedPlatform, 5); //Chance of 1/6 compared to the default of 1/4
             //Spawn coins that go on the platform
             SpawnCoins(i, instantiatedPlatform);
             //Spawn ground details (little rocks)
@@ -902,18 +902,20 @@ public class MainScript : MonoBehaviour {
             }
         }
 
-        //Spawn the end platform then tag and save it
+        //Spawn the end platform then tag it
         instantiatedPlatform = Instantiate(endPlatform[Mathf.RoundToInt(Random.Range(0, endPlatform.Length))], new Vector3(0, -4.5f * level, 25 * level), Quaternion.Euler(10.204f, 0, 0));
         instantiatedPlatform.tag = platformTag;
-        endZoneRef = instantiatedPlatform;
+
+        //Find the trigger within the end platform and save it
+        endZoneRef = GameObject.FindGameObjectWithTag(endZoneTag);
     }
 
     //Spawn background objects
-    void SpawnBackgroundObjects(int num, GameObject newParent) {
-        if (Mathf.RoundToInt(Random.Range(0, 3)) == 0) { //25% chance of spawning
+    void SpawnBackgroundObjects(int platformNumber, GameObject newParent, int chance = 3) {
+        if (Mathf.RoundToInt(Random.Range(0, chance)) == 0) { //25% chance of spawning by default
             //Spawn background object and then tag and parent it
             GameObject instantiatedBackground;
-            instantiatedBackground = Instantiate(backgrounds[Mathf.RoundToInt(Random.Range(0, backgrounds.Length))], new Vector3(0, -4.5f * num, 25 * num), Quaternion.Euler(0, 0, 0));
+            instantiatedBackground = Instantiate(backgrounds[Mathf.RoundToInt(Random.Range(0, backgrounds.Length))], new Vector3(0, -4.5f * platformNumber, 25 * platformNumber), Quaternion.Euler(0, 0, 0));
             instantiatedBackground.tag = backgroundTag;
             instantiatedBackground.transform.parent = newParent.transform;
         }
@@ -1238,14 +1240,12 @@ public class MainScript : MonoBehaviour {
                 //Stop the player moving
                 playerScriptRef.GetComponent<Rigidbody>().isKinematic = true;
                 playerScriptRef.transform.position = startPosition;
+                inGame = false;
 
                 //Increase max level if on max level
                 if (level == maxLevel) {
                     maxLevel++;
                 }
-
-                //Increase current level
-                level++;
 
                 //Show level win menu
                 SwitchScreens("leveledWin");
